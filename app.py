@@ -21,8 +21,6 @@ livros = [
 ]
 
 # Consultar todos os livros
-
-
 @app.route('/livros', methods=['GET'])
 def obter_livros():
     return jsonify(livros)
@@ -42,6 +40,13 @@ def editar_livro(id):
         if livro.get('id') == id:
             livros[i].update(livro_alterado)
             return jsonify(livros[i])
+
+
+@app.route('/livros', methods=['POST'])
+def incluir_livro():
+  novo_livro = request.get_json()
+  livros.append(novo_livro)
+  return jsonify(livros)
 
 
 app.run(port=5000, host='localhost', debug=True)
