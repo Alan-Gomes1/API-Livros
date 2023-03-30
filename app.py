@@ -44,9 +44,17 @@ def editar_livro(id):
 
 @app.route('/livros', methods=['POST'])
 def incluir_livro():
-  novo_livro = request.get_json()
-  livros.append(novo_livro)
-  return jsonify(livros)
+    novo_livro = request.get_json()
+    livros.append(novo_livro)
+    return jsonify(livros)
+
+
+@app.route('/livros/<int:id>', methods=['DELETE'])
+def excluir_livro(id):
+    for i, livro in enumerate(livros):
+        if livro.get('id') == id:
+            del livros[i]
+    return jsonify(livros)
 
 
 app.run(port=5000, host='localhost', debug=True)
